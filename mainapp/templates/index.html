@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap %}
+
+{% block content %}
+    <div class="container">
+        <form method="GET">
+            {{ filter.form|bootstrap }}
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <ul>
+            {% for duration in filter.qs %}
+                {{ duration.id }}
+                {{ duration.client_id.name }}
+            {% endfor %}
+        </ul>
+
+    </div>
+{% endblock %}
