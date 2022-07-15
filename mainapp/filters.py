@@ -1,23 +1,20 @@
 import django_filters
-from django_filters import DateFromToRangeFilter, TimeRangeFilter, DateFilter, TimeFilter
-
 from mainapp.models import Durations, Clients, Equipment, Modes
 
 
 class DurationsFilter(django_filters.FilterSet):
-    client_id = django_filters.ChoiceFilter(choices=[])
-    equipment_id = django_filters.ChoiceFilter(choices=[])
-    mode_id = django_filters.ChoiceFilter(choices=[])
-    start = django_filters.TimeFilter(input_formats=['%Y-%m-%d', '%d-%m-%Y'], lookup_expr='contains')
-    stop = django_filters.DateFilter(input_formats=['%Y-%m-%d', '%d-%m-%Y'], lookup_expr='contains')
-    start_time = django_filters.NumberFilter(lookup_expr='gte', field_name='start__hour')
-    end_time = django_filters.NumberFilter(lookup_expr='lte', field_name='stop__hour')
-
-
-    # start = TimeRangeFilter()
-    # client_id = django_filters.ChoiceFilter(choices=[], null_label='Все', null_value='')
-    # equipment_id = django_filters.ChoiceFilter(choices=[], null_label='Все', null_value='')
-    # mode_id = django_filters.ChoiceFilter(choices=[], null_label='Все', null_value='')
+    client_id = django_filters.ChoiceFilter(choices=[], label='Клиент')
+    equipment_id = django_filters.ChoiceFilter(choices=[], label='Оборудование')
+    mode_id = django_filters.ChoiceFilter(choices=[], label='Состояние')
+    minutes = django_filters.CharFilter(label='Длительность состояния')
+    start = django_filters.DateFilter(input_formats=['%Y-%m-%d', '%d-%m-%Y'],
+                                      lookup_expr='contains', label='Дата начала')
+    stop = django_filters.DateFilter(input_formats=['%Y-%m-%d', '%d-%m-%Y'],
+                                     lookup_expr='contains', label='Дата окончания')
+    start_time = django_filters.NumberFilter(lookup_expr='gte', field_name='start__hour',
+                                             label='Время начала, номер часа')
+    end_time = django_filters.NumberFilter(lookup_expr='lte', field_name='stop__hour',
+                                           label='Время окончания, номер часа')
 
     class Meta:
         model = Durations
@@ -37,4 +34,5 @@ class DurationsFilter(django_filters.FilterSet):
             (mods.id, mods.name)
             for mods in Modes.objects.all()
         ]
+
 

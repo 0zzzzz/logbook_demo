@@ -11,8 +11,15 @@
 
         <ul>
             {% for duration in filter.qs %}
-                {{ duration.id }}
-                {{ duration.client_id.name }}
+                <div>
+                    id: {{ duration.id }}
+                    client: {{ duration.client_id.name }}
+                    equipment: {{ duration.equipment_id.name }}
+                    mode:  {{ duration.mode_id.name }}
+                    minutes: {{ duration.minutes }}
+                    start: {{ duration.start }}
+                    stop: {{ duration.stop }}
+                </div>
             {% endfor %}
         </ul>
 
