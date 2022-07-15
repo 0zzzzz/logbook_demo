@@ -1,4 +1,0 @@
-python manage.py inspectdb > models.py
-
-sqlite3 demo_db.db ".dump equipment" | sqlite3 db.sqlite3
-
